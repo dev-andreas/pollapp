@@ -1,3 +1,3 @@
 # pollapp
 
-Simple poll website with Django, Vue, and Tailwind
+Simple poll website with Django, Vue, and Tailwind.
