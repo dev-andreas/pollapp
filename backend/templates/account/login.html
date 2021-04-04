@@ -1,19 +1,41 @@
-{% extends "base.html" %}
+{% extends "vue/base.html" %}
+{% load static %}
 {% block content %}
 
-<h1>Sign In</h1>
+<div class="flex flex-col justify-center items-center h-screen">
+    <img class="w-32 transition ease-out duration-500 transform hover:scale-110" src="{% static 'images/poll.svg' %}" alt="">
+    <h1 class="text-6xl uppercase font-extralight mt-5">Sign In</h1>
 
-<form class="login" method="POST" action="{% url 'account_login' %}">
-    {% csrf_token %}
-    {{ form.login }}
-    {{ form.password }}
+    <form class="flex flex-col" method="POST" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        <div class="border-b py-2 mt-4 focus-within:border-primary-400">{{ form.login }}</div>
+        <div class="border-b py-2 mb-4 focus-within:border-primary-400">{{ form.password }}</div>
 
-    <a class="button secondaryAction" href="{% url 'account_reset_password' %}">Forgot Password?</a>
-    <button class="primaryAction" type="submit">Sign In</button>
-</form>
+        {% if form.errors %}
+        <ul class="text-xs my-3">
+            {% for error in form.errors.values %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
 
-<p>If you have not created an account yet, then please
-    <a href="{{ signup_url }}">sign up</a> first.
-</p>
+        {% if messages %}
+        <ul class="text-xs my-4">
+            {% for message in messages %}
+            <li>{{message}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <div class="flex justify-between">
+            <a class="btn" href="{% url 'account_reset_password' %}">Forgot Password?</a>
+            <input class="btn-primary" type="submit" value="Sign In"/>
+        </div>
+    </form>
+
+    <p class="mt-4 text-sm">If you have not created an account yet, then please
+        <a href="{{ signup_url }}">sign up</a> first.
+    </p>
+</div>
 
 {% endblock %}

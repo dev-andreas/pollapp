@@ -2,7 +2,7 @@ module.exports = {
   purge: [
     './index.html',
     './src/**/*.{vue,js,ts,jsx,tsx}',
-    './../backend/templates/index.html'
+    './../backend/templates/**/*.html'
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {

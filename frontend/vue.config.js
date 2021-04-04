@@ -5,6 +5,13 @@ module.exports = {
             : 'http://127.0.0.1:8080',
 
     pages: {
+        base: {
+            entry: 'src/pages/base/main.js',
+            template: 'public/index.html',
+            filename: '../../templates/vue/base.html',
+            title: 'Pollapp',
+            chunks: ['chunk-vendors', 'chunk-common', 'base']
+        },
         index: {
             entry: 'src/pages/index/main.js',
             template: 'public/index.html',
