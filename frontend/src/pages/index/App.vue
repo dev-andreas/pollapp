@@ -4,6 +4,7 @@
       <img src="/static/images/poll.svg" class="w-32">
       <h1 class="text-9xl font-extralight ml-2">Pollapp</h1>
     </div>
+    <h2 class="text-3xl font-light mt-4">Make Polls. Free and Open Source.</h2>
     <div class="flex mt-10">
       <a class="btn btn-primary" href="/accounts/login/">Login</a>
       <a class="btn btn-primary" href="/accounts/signup/">Sign Up</a>
