@@ -12,7 +12,7 @@
 
 {% user_display confirmation.email_address.user as user_display %}
 
-<p class="mt-4 font-bold">Please confirm that <a href="mailto:{{ email }}">{{ email }}</a> is an e-mail address for user {{ user_display }}.</p>
+<p class="mt-4 font-bold">Please confirm that <a class="link" href="mailto:{{ email }}">{{ email }}</a> is an e-mail address for user {{ user_display }}.</p>
 
 <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
 {% csrf_token %}
@@ -23,7 +23,7 @@
 
 {% url 'account_email' as email_url %}
 
-<p class="mt-4 font-bold">This e-mail confirmation link expired or is invalid. Please <a href="{{ email_url }}">issue a new e-mail confirmation request</a>.</p>
+<p class="mt-4 font-bold">This e-mail confirmation link expired or is invalid. Please <a class="link" href="{{ email_url }}">issue a new e-mail confirmation request</a>.</p>
 
 {% endif %}
 </div>

@@ -10,7 +10,7 @@
     backdrop-filter: saturate(180%) blur(20px);
 }
 
-a {
+.link {
     @apply font-bold transition ease-out duration-200 text-primary-500;
 }
 

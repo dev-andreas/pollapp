@@ -1,15 +1,15 @@
 <template>
   <nav class="tinted flex justify-between items-center h-14 border-gray-500 border-b p-3 shadow-md">
     <div class="flex items-center">
-      <a class="flex items-center" href="">
-        <img src="/static/images/poll.svg" class="w-10">
-        <h1 class="font-thin text-lg ml-2">Pollapp</h1>
-      </a>
-      <div v-for="(item, index) in items" :key="item.name" class="ml-4">
-        <a :href="item.link" class="border-b border-transparent hover:text-gray-500"
+      <router-link class="flex items-center" :to="{ name: links[0].name }">
+        <img src="/static/images/poll.svg" class="w-8">
+        <h1 class="font-thin text-lg ml-3">Pollapp</h1>
+      </router-link>
+      <div v-for="(item, index) in links" :key="index" class="ml-4">
+        <router-link :to="{ name: item.link }" class="text-font-dark font-normal border-b border-transparent hover:text-gray-500"
           :class="[index === current ? 'border-secondary-200' : 'border-transparent']">
           {{item.name}}
-        </a>
+        </router-link>
       </div>
     </div>
     <div>
@@ -28,18 +28,17 @@
         type: Number,
         default: 0,
       },
+      links: {
+        type: Array,
+        default: [{ name: "Home", link: "Home" }],
+      }
     },
 
     setup(props, context) {
-      const { current } = toRefs(props);
-      const items = ref([
-        { name: 'Home', link: '/' },
-        { name: 'New Poll', link: '/new_poll' },
-        { name: 'Settings', link: '/settings' },
-      ]);
+      const { current, links } = toRefs(props);
 
       return {
-        items,
+        links,
         current,
       }
     }

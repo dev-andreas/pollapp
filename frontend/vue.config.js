@@ -5,20 +5,21 @@ module.exports = {
             : 'http://127.0.0.1:8080',
 
     pages: {
-        base: {
-            entry: 'src/pages/base/main.js',
+        base: { // Should be used if you want to include TailwindCSS to Django template without Vue.js.
+            entry: 'src/pages/base/base.js',
             template: 'public/index.html',
             filename: '../../templates/vue/base.html',
             title: 'Pollapp',
             chunks: ['chunk-vendors', 'chunk-common', 'base']
         },
-        index: {
-            entry: 'src/pages/index/main.js',
+        
+        home: {
+            entry: 'src/pages/home/main.js',
             template: 'public/index.html',
-            filename: '../../templates/vue/index.html',
-            title: 'Index Page',
-            chunks: ['chunk-vendors', 'chunk-common', 'index']
-        },
+            filename: '../../templates/vue/home.html',
+            title: 'Pollapp',
+            chunks: ['chunk-vendors', 'chunk-common', 'home']
+        }
     },
 
     outputDir: '../backend/static/dist',
