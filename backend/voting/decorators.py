@@ -6,7 +6,7 @@ def user_authenticated(view_func):
         if request.user.is_authenticated:
             return view_func(request, *args, **kwargs)
         else:
-            return redirect('account_login')
+            return redirect('index')
     return wrapper
 
 def user_unauthenticated(view_func):

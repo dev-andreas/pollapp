@@ -13,12 +13,12 @@ module.exports = {
             chunks: ['chunk-vendors', 'chunk-common', 'base']
         },
         
-        home: {
-            entry: 'src/pages/home/main.js',
+        user: {
+            entry: 'src/pages/user/main.js',
             template: 'public/index.html',
-            filename: '../../templates/vue/home.html',
+            filename: '../../templates/vue/user.html',
             title: 'Pollapp',
-            chunks: ['chunk-vendors', 'chunk-common', 'home']
+            chunks: ['chunk-vendors', 'chunk-common', 'user']
         }
     },
 

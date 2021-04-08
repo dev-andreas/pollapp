@@ -8,9 +8,9 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue')
+    path: '/settings',
+    name: 'UserSettings',
+    component: () => import('../views/UserSettings.vue')
   },
 
   // catchall 404

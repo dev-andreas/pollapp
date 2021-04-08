@@ -1,16 +1,16 @@
 <template>
   <div class="flex flex-col min-h-screen">
-    <Nav/>
+    <Nav :links="$store.getters.getNavLinks" :current="$store.state.currentPage"/>
     <router-view />
   </div>
 </template>
 
 <script>
 import { ref } from "vue";
-import Nav from "../../components/Nav.vue"
+import NavBar from "../../components/NavBar.vue"
 export default {
   components: {
-    Nav,
+    Nav: NavBar,
   },
   setup() {},
 };

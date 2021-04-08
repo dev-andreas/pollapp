@@ -1,6 +1,6 @@
 <template>
   <div>
-      <p>Home View</p>
+      <p>User Settings Page</p>
   </div>
 </template>
 

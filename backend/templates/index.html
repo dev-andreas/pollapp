@@ -14,9 +14,10 @@
         <a class="btn btn-primary" href="{% url 'account_signup' %}">Sign Up</a>
     </div>
     <a class="flex flex-col items-center mt-10 transition ease-out duration-500 transform hover:scale-110"
-        href="https://github.com/dev-andreas/pollapp">
+        href="https://github.com/dev-andreas/pollapp" target="_blank">
         <img src="/static/images/github_dark.svg" class="w-14">
         <p class="text-sm">View source code &raquo;</p>
     </a>
 </div>
+{% include 'generics/footer.html' %}
 {% endblock %}

@@ -36,14 +36,37 @@ module.exports = {
           light: '#dddddd',
           dark: '#444444',
         },
+        backg: {
+          light: '#fafafa',
+          dark: '#05181a',
+        }
       },
       fontFamily: {
         body: ['Roboto'],
       },
+      width: {
+        'desktop': '50rem',
+      },
+      stroke: theme => ({
+        'primary': theme('colors.primary'),
+        'secondary': theme('colors.secondary'),
+        'font': theme('colors.font'),
+        'white': 'white',
+      }),
+      fill: theme => ({
+        'primary': theme('colors.primary'),
+        'secondary': theme('colors.secondary'),
+        'font': theme('colors.font'),
+        'white': 'white',
+      }),
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      stroke: ['group-hover'],
+      fill: ['group-hover'],
+      borderRadius: ['hover'],
+    },
   },
   plugins: [],
 }

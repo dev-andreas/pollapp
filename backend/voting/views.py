@@ -19,7 +19,7 @@ def test(request):
 @method_decorator(user_authenticated, name='dispatch')
 class HomeView(View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'voting/home.html', self.get_context_data(*args, **kwargs))
+        return render(request, 'user.html', self.get_context_data(*args, **kwargs))
 
     def get_context_data(self, *args, **kwargs):
         return {}

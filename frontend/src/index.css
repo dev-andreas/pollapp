@@ -6,6 +6,10 @@
     @apply text-font-dark font-body;
 }
 
+body {
+    @apply bg-backg-light
+}
+
 .tinted {
     backdrop-filter: saturate(180%) blur(20px);
 }
@@ -19,11 +23,30 @@
 }
 
 .btn-primary {
-    @apply btn mx-2 border transition ease-out duration-200 hover:border-primary-400;
+    @apply btn mx-2 border transition ease-out duration-200 hover:border-primary-400 hover:shadow;
+}
+
+.card {
+    @apply flex flex-col border items-center bg-white shadow-sm hover:shadow-md transition ease-out duration-500;
 }
 
 nav {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
+    @apply sticky top-0;
+}
+
+/* vue animations */
+
+.appear-enter-active,
+.appear-leave-active {
+    @apply transition ease-out duration-500;
+}
+.appear-enter-from,
+.appear-leave-to {
+    transform: scale(.75);
+    @apply opacity-0;
+}
+
+.appear-enter-to,
+.appear-leave-from {
+    @apply opacity-100 scale-100;
 }
