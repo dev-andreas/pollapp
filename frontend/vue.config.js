@@ -30,6 +30,6 @@ module.exports = {
             .public("http://127.0.0.1:8080")
             .hotOnly(true)
             .headers({ "Access-Control-Allow-Origin": "*" })
-            .writeToDisk((filePath) => filePath.endsWith(".html")); //NOTE THIS CHANGE HERE
+            .writeToDisk((filePath) => filePath.endsWith(".html"));
     },
 }

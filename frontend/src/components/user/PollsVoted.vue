@@ -1,6 +1,6 @@
 <template>
   <div class="card py-4 col-span-1 justify-between">
-    <div>
+    <div class="flex flex-col items-center">
       <h2 class="text-2xl">Polls Voted</h2>
       <Pagination class="mt-4" :items="$store.getters.getPollsVoted" @pageChanged="retrieveCurrentPage">
         <template v-slot:default>
@@ -39,7 +39,7 @@
     </div>
     <div class="flex w-full pr-2 mt-8 justify-end justify-self-end">
       <input
-        class="border px-1 w-40 hover:shadow focus:shadow focus:border-primary-400 transition ease-out duration-200"
+        class="inpt"
         type="text" placeholder="hash" />
       <router-link class="btn-primary" to="">Visit poll</router-link>
     </div>

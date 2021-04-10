@@ -1,6 +1,6 @@
 <template>
   <div class="card py-4 col-span-1 justify-between">
-    <div>
+    <div class="flex flex-col items-center">
       <h2 class="text-2xl">Polls Created</h2>
       <Pagination class="mt-4" :items="$store.getters.getPollsCreated" @pageChanged="retrieveCurrentPage">
         <template v-slot:default>

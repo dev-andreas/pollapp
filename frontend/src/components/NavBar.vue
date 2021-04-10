@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="tinted flex justify-between items-center h-14 border-gray-500 border-b p-3 shadow-md"
+    class="tinted flex justify-between items-center h-14 border-gray-500 border-b p-3 shadow-md z-50"
   >
     <div class="flex items-center">
       <router-link class="flex items-center" :to="{ name: links[0].name }">
@@ -32,23 +32,23 @@ export default {
   name: "Nav",
 
   props: {
-    current: {
-      type: Number,
-      default: 0,
-    },
     links: {
       type: Array,
       default: [{ name: "Home", link: "Home" }],
     },
+    current: {
+      type: Number,
+      default: 0,
+    },
   },
 
   setup(props, context) {
-    const { current, links } = toRefs(props);
+    const { links, current } = toRefs(props);
 
     function logout() {
       axios({
         method: 'POST',
-        url: 'http://127.0.0.1:8000/accounts/logout/', // vuex
+        url: 'http://127.0.0.1:8000/accounts/logout/',
         xsrfCookieName: 'csrftoken',
         xsrfHeaderName: 'X-CSRFToken',
       });

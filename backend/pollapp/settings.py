@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'allauth.account',
 
     'accounts.apps.AccountsConfig',
-    'voting.apps.VotingConfig'
+    'user.apps.UserConfig'
 ]
 
 MIDDLEWARE = [

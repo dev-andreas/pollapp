@@ -5,7 +5,7 @@ from allauth.account.views import PasswordResetView
 
 # Create your views here.
 
-from voting.decorators import user_unauthenticated
+from user.decorators import user_unauthenticated
 
 @method_decorator(user_unauthenticated, name='dispatch')
 class CustomPasswordResetView(PasswordResetView):

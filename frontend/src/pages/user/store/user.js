@@ -19,20 +19,22 @@ export const user = {
         setLastName(state, value) {
             state.lastName = value;
         },
+        setDateJoined(state, value) {
+            state.joined = value;
+        }
     },
     actions: {
-        setUsername(value) {
-            this.commit('setUsername', value);
+        loadUserData(store) {
+            const user = JSON.parse(document.getElementById('user').textContent);
+            store.commit('setUsername', user.username);
+            store.commit('setEmail', user.email);
+            store.commit('setFirstName', user.first_name);
+            store.commit('setLastName', user.last_name);
+            store.commit('setDateJoined', user.date_joined)
         },
-        setEmail(value) {
-            this.commit('setEmail', value);
-        },
-        setFirstName(value) {
-            this.commit('setFirstName', value);
-        },
-        setLastName(value) {
-            this.commit('setLastName', value);
-        },
+        saveUserData() {
+
+        }
     },
     getters: {
         getUsername(state) {

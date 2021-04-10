@@ -1,18 +1,27 @@
 <template>
   <div class="flex flex-col min-h-screen">
-    <Nav :links="$store.getters.getNavLinks" :current="$store.state.currentPage"/>
-    <router-view />
+    <Nav :links="$store.getters.getNavLinks" :current="currentPage"/>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, computed } from "vue"
+import { useStore } from "vuex"
 import NavBar from "../../components/NavBar.vue"
 export default {
   components: {
     Nav: NavBar,
   },
-  setup() {},
+  setup() {
+    const store = useStore();
+
+    const currentPage = computed(() => {
+      return store.state.currentPage;
+    });
+
+    return { currentPage }
+  }
 };
 </script>
 

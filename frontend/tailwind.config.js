@@ -46,6 +46,7 @@ module.exports = {
       },
       width: {
         'desktop': '50rem',
+        'phone': '25rem',
       },
       stroke: theme => ({
         'primary': theme('colors.primary'),

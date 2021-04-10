@@ -1,6 +1,9 @@
 {% extends 'vue/user.html' %}
 
 {% block content %}
+
+    {{ user|json_script:"user" }}
+    
     <div id="app"></div>
     {% include 'generics/footer.html' %}
 {% endblock %}

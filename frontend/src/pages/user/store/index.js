@@ -5,20 +5,22 @@ import { polls } from './polls'
 export default createStore({
     state: {
         currentPage: 0,
+        baseUrl: 'http://127.0.0.1:8000/',
     },
     mutations: {
         setCurrentPage(state, value) {
             state.currentPage = value;
-        }
+        },
     },
     actions: {
-        setCurrentPage(value) {
-            this.commit('setCurrentPage', value);
-        }
     },
     getters: {
         getCurrentPage(state) {
             return state.currentPage;
+        },
+
+        getBaseUrl(state) {
+            return state.baseUrl;
         },
 
         // Navbar

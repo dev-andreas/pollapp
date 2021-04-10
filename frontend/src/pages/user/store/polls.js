@@ -36,18 +36,6 @@ export const polls = {
         }
     },
     actions: {
-        setPollsCreated(value) {
-            this.commit('setPollsCreated', value);
-        },
-        setPollsVoted(value) {
-            this.commit('setPollsVoted', value);
-        },
-        addCreatedPoll(value) {
-            this.commit('addCreatedPoll', value);
-        },
-        addVotedPoll(value) {
-            this.commit('addVotedPoll', value);
-        },
     },
     getters: {
         getPollsCreated(state) {

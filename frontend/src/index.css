@@ -19,11 +19,15 @@ body {
 }
 
 .btn {
-    @apply py-2 px-3 text-font-dark uppercase text-xs font-bold cursor-pointer tracking-wider;
+    @apply py-2 px-3 uppercase text-xs font-bold cursor-pointer tracking-wider;
 }
 
 .btn-primary {
     @apply btn mx-2 border transition ease-out duration-200 hover:border-primary-400 hover:shadow;
+}
+
+.inpt {
+    @apply border-b py-1 px-1 w-52 hover:bg-backg-light focus:bg-backg-light focus:border-primary-400 transition ease-out duration-200;
 }
 
 .card {

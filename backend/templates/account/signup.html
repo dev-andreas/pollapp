@@ -8,10 +8,10 @@
 
     <form class="flex flex-col items-center" method="post" action="{% url 'account_signup' %}">
         {% csrf_token %}
-        <div class="border-b py-2 mt-4 focus-within:border-primary-400">{{ form.username }}</div>
-        <div class="border-b py-2 focus-within:border-primary-400">{{ form.email }}</div>
-        <div class="border-b py-2 focus-within:border-primary-400">{{ form.password1 }}</div>
-        <div class="border-b py-2 mb-4 focus-within:border-primary-400">{{ form.password2 }}</div>
+        <div class="mt-4">{{ form.username }}</div>
+        <div class="mt-2">{{ form.email }}</div>
+        <div class="mt-2">{{ form.password1 }}</div>
+        <div class="mb-4 mt-2">{{ form.password2 }}</div>
 
         {% if form.errors %}
         <ul class="text-xs my-4">
@@ -38,5 +38,12 @@
 
     <p class="mt-8 text-sm">Already have an account? Then please <a class="link" href="{{ login_url }}">sign in</a>.</p>
 </div>
+
+<script>
+    document.querySelector('#id_username').classList.add('inpt');
+    document.querySelector('#id_email').classList.add('inpt');
+    document.querySelector('#id_password1').classList.add('inpt');
+    document.querySelector('#id_password2').classList.add('inpt');
+</script>
 
 {% endblock %}
