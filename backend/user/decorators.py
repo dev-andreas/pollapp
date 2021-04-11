@@ -12,7 +12,7 @@ def user_authenticated(view_func):
 def user_unauthenticated(view_func):
     def wrapper(request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect('home')
+            return redirect('user')
         else:
             return view_func(request, *args, **kwargs)
     return wrapper

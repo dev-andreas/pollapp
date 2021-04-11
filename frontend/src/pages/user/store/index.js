@@ -28,7 +28,7 @@ export default createStore({
             return [
                 { name: 'Home', link: 'Home' },
                 { name: 'Settings', link: 'UserSettings' },
-                { name: 'New Poll', link: '' },
+                { name: 'New Poll', link: 'NewPoll' },
             ];
         },
     },

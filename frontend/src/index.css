@@ -11,7 +11,7 @@ body {
 }
 
 .tinted {
-    backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(10px);
 }
 
 .link {

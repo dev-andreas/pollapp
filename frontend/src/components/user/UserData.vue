@@ -2,27 +2,27 @@
   <div class="flex flex-col justify-center items-center border-b pb-2 col-span-2">
     <h1 class="mt-10 text-6xl font-extralight">
       Hello,
-      <span v-if="$store.getters.getFirstName !== ''">
-        {{ $store.getters.getFirstName }}
+      <span v-if="$store.getters.getUser.first_name !== ''">
+        {{ $store.getters.getUser.first_name }}
       </span>
-      <span v-else> {{ $store.getters.getUsername }} </span>!
+      <span v-else> {{ $store.getters.getUser.username }} </span>!
     </h1>
     <table class="text-sm mt-4">
       <tr>
         <td class="font-bold">Username:</td>
         <td>
-          <p class="ml-3">{{ $store.getters.getUsername }}</p>
+          <p class="ml-3">{{ $store.getters.getUser.username }}</p>
         </td>
       </tr>
       <tr>
         <td class="font-bold">E-Mail:</td>
         <td>
-          <p class="ml-3">{{ $store.getters.getEmail }}</p>
+          <p class="ml-3">{{ $store.getters.getUser.email }}</p>
         </td>
       </tr>
       <td class="font-bold">Joined:</td>
       <td>
-        <p class="ml-3">{{ $store.getters.getDateJoined }}</p>
+        <p class="ml-3">{{ $store.getters.getUser.date_joined }}</p>
       </td>
     </table>
     <router-link

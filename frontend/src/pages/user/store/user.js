@@ -1,56 +1,64 @@
+import { makeRequest } from "../../../index.js"
+
 export const user = {
     state: {
-        username: 'admin',
-        firstName: 'Andreas',
-        lastName: 'Gerasimow',
-        email: 'andreas.gerasimow12@gmail.com',
-        joined: '2021/4/3'
+        user: {
+            username: '',
+            email: '',
+            first_name: '',
+            last_name: '',
+            date_joined: ''
+        },
     },
     mutations: {
-        setUsername(state, value) {
-            state.username = value;
+        setUser(state, value) {
+            state.user = value;
         },
-        setEmail(state, value) {
-            state.email = value;
+        setUsername(state, value) {
+            state.user.username = value;
         },
         setFirstName(state, value) {
-            state.firstName = value;
+            state.user.first_name = value;
         },
         setLastName(state, value) {
-            state.lastName = value;
+            state.user.last_name = value;
         },
-        setDateJoined(state, value) {
-            state.joined = value;
+        setEmail(state, value) {
+            state.user.email = value;
         }
     },
     actions: {
         loadUserData(store) {
             const user = JSON.parse(document.getElementById('user').textContent);
-            store.commit('setUsername', user.username);
-            store.commit('setEmail', user.email);
-            store.commit('setFirstName', user.first_name);
-            store.commit('setLastName', user.last_name);
-            store.commit('setDateJoined', user.date_joined)
+            store.commit('setUser', user);
         },
-        saveUserData() {
-
+        saveUserData(store) {
+            let data = new FormData();
+            data.append('username', store.getters.getUsername);
+            data.append("first_name", store.getters.getFirstName);
+            data.append("last_name", store.getters.getLastName);
+            data.append("email", store.getters.getEmail);
+            return makeRequest('POST', data, store.getters.getBaseUrl + 'api/user/');
         }
     },
     getters: {
+        getUser(state) {
+            return state.user;
+        },
         getUsername(state) {
-            return state.username;
+            return state.user.username;
         },
         getEmail(state) {
-            return state.email;
+            return state.user.email;
         },
         getDateJoined(state) {
-            return state.joined;
+            return state.user.date_joined;
         },
         getFirstName(state) {
-            return state.firstName;
+            return state.user.first_name;
         },
         getLastName(state) {
-            return state.lastName;
+            return state.user.last_name;
         }
     },
 };

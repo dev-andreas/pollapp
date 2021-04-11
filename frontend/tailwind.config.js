@@ -48,6 +48,9 @@ module.exports = {
         'desktop': '50rem',
         'phone': '25rem',
       },
+      inset: {
+        '1/6': '16.666667%'
+      },
       stroke: theme => ({
         'primary': theme('colors.primary'),
         'secondary': theme('colors.secondary'),

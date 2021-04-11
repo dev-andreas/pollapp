@@ -5,5 +5,8 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    url(r'^user/.*$', views.HomeView.as_view(), name='home'),
+    url(r'^user/.*$', views.UserView.as_view(), name='user'),
+
+    # apis
+    path('api/user/', views.UserAPI.as_view(), name='user_data'),
 ]

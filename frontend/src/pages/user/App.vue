@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { ref, computed } from "vue"
+import { ref, computed, onMounted } from "vue"
 import { useStore } from "vuex"
 import NavBar from "../../components/NavBar.vue"
 export default {
@@ -15,6 +15,10 @@ export default {
   },
   setup() {
     const store = useStore();
+
+    onMounted(() => {
+      store.dispatch('loadUserData');
+    });
 
     const currentPage = computed(() => {
       return store.state.currentPage;

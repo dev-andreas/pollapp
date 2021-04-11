@@ -8,9 +8,14 @@ const routes = [
     component: Home
   },
   {
-    path: '/settings',
+    path: '/settings/',
     name: 'UserSettings',
     component: () => import('../views/UserSettings.vue')
+  },
+  {
+    path: '/new_poll/',
+    name: 'NewPoll',
+    component: () => import('../views/CreatePoll.vue')
   },
 
   // catchall 404

@@ -4,7 +4,7 @@
       <img
         :src="src"
         alt="Avatar"
-        class="w-60 h-60 rounded-full object-cover bg-white border-1 border-font-dark"
+        class="w-full h-full rounded-full object-cover bg-white border-1 border-font-dark"
       />
       <div
         class="group absolute top-0 w-full h-full bg-black bg-opacity-0 hover:bg-opacity-25 flex 

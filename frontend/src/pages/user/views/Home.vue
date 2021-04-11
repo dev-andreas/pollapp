@@ -13,7 +13,7 @@ import UserData from "../../../components/user/UserData.vue";
 import PollsVoted from "../../../components/user/PollsVoted.vue";
 import PollsCreated from "../../../components/user/PollsCreated.vue";
 
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import { useStore } from "vuex"
 
 export default {
@@ -26,9 +26,6 @@ export default {
   setup() {
     const store = useStore();
 
-    onMounted(() => {
-      store.dispatch('loadUserData');
-    });
     store.commit('setCurrentPage', 0);
   },
 };
