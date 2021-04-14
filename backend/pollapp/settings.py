@@ -171,3 +171,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 SITE_ID = 1
+
+# automatic logout
+
+SESSION_COOKIE_AGE = 86400 # 24 hours in seconds
