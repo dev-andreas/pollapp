@@ -40,7 +40,7 @@
       >from {{ pagesAmt }}.
     </p>
     <div class="mt-2">
-      <slot v-if="itemsLength !== 0"> </slot>
+      <slot v-if="items.length !== 0"> </slot>
       <slot v-else name="noItems">No items.</slot>
     </div>
   </div>
@@ -49,7 +49,6 @@
 <script>
 import { ref, watch, computed, toRefs, onBeforeMount } from "vue";
 export default {
-
   props: {
     items: {
       type: Array,
@@ -69,14 +68,14 @@ export default {
     onBeforeMount(() => {
       currentPage.value = 0;
     });
-    // set current page to 0 before mounted so that watch property gets triggered
 
+    // set current page to 0 before mounted so that watch property gets triggered
     const pagesAmt = computed(() => {
       return parseInt(items.value.length / itemsPerPage.value) + 1;
     });
 
     // emit current page (in reversed order)
-    watch(currentPage, () => {
+    const getCurrentPage = computed(() => {
       const firstItem = Math.max(
         0,
         items.value.length - (currentPage.value + 1) * itemsPerPage.value
@@ -85,10 +84,20 @@ export default {
         items.value.length,
         items.value.length - currentPage.value * itemsPerPage.value
       );
-      context.emit(
-        "pageChanged",
-        items.value.slice(firstItem, lastItem).reverse()
-      );
+
+      const page = items.value.slice(firstItem, lastItem);
+
+      // return reversed current page items zipped with the corresponding index...
+      return page
+        .map((item, index) => {
+          return { item: item, index: firstItem + index };
+        })
+        .reverse();
+    });
+
+    // emit when list or page changed
+    watch(getCurrentPage, () => {
+      context.emit("pageChanged", getCurrentPage.value);
     });
 
     // functions
@@ -105,7 +114,7 @@ export default {
     };
 
     return {
-      'itemsLength': items.value.length,
+      items,
       currentPage,
       pagesAmt,
       incPage,

@@ -19,7 +19,7 @@
           >
             <table>
               <tr>
-                <td class="font-bold">Username:</td>
+                <td class="font-light">Username:</td>
                 <td>
                   <input
                     class="inpt my-3 ml-2"
@@ -30,7 +30,7 @@
                 </td>
               </tr>
               <tr>
-                <td class="font-bold">First Name:</td>
+                <td class="font-light">First Name:</td>
                 <td>
                   <input
                     class="inpt my-3 ml-2"
@@ -41,7 +41,7 @@
                 </td>
               </tr>
               <tr>
-                <td class="font-bold">Last Name:</td>
+                <td class="font-light">Last Name:</td>
                 <td>
                   <input
                     class="inpt my-3 ml-2"
@@ -52,7 +52,7 @@
                 </td>
               </tr>
               <tr>
-                <td class="font-bold">E-Mail:</td>
+                <td class="font-light">E-Mail:</td>
                 <td>
                   <input
                     class="inpt my-3 ml-2"
@@ -73,7 +73,7 @@
                 >Change Password</a
               >
               <input
-                class="btn-primary"
+                class="btn-primary mr-2"
                 type="submit"
                 value="Save changes"
                 @click="saveChanges"

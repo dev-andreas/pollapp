@@ -1,5 +1,7 @@
 <template>
-  <div class="flex flex-col justify-center items-center border-b pb-2 col-span-2">
+  <div
+    class="flex flex-col justify-center items-center border-b pb-2 col-span-2"
+  >
     <h1 class="mt-10 text-6xl font-extralight">
       Hello,
       <span v-if="$store.getters.getUser.first_name !== ''">
@@ -29,25 +31,20 @@
       :to="{ name: 'UserSettings' }"
       class="group self-end mr-2 p-2 rounded-full hover:bg-primary-500 hover:shadow-md transition ease-out duration-200"
     >
-      <svg
+      <PencilSvg
         class="h-6 w-6 transition stroke-primary-500 group-hover:stroke-white ease-out duration-200"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-        />
-      </svg>
+      ></PencilSvg>
     </router-link>
   </div>
 </template>
 
 <script>
-export default {};
+import PencilSvg from "../svgpaths/PencilSvg.vue";
+export default {
+  components: {
+    PencilSvg,
+  },
+};
 </script>
 
 <style>

@@ -1,4 +1,4 @@
-import { makeRequest } from "../../../index.js"
+import { makeRequest } from "../../../assets/utils.js"
 
 export const user = {
     state: {
