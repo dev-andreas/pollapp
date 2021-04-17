@@ -8,8 +8,9 @@ from rest_framework.views import APIView
 # Create your views here.
 
 from .decorators import user_authenticated, user_unauthenticated
-from .serializers import UserSerializer
-
+from .serializers import UserSerializer, PollSerializer
+from .validators import PollValidator
+from .models import Poll
 
 @user_unauthenticated
 def index(request):
@@ -38,3 +39,15 @@ class UserAPI(APIView):
             user = serializer.save()
             return JsonResponse(serializer.data, status=status.HTTP_200_OK)
         return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@method_decorator(user_authenticated, name='dispatch')
+class CreatePollAPI(APIView):
+    def post(self, request, *args, **kwargs):
+
+        serializer = PollSerializer(data=self.request.POST, user=request.user)
+
+        if serializer.is_valid():
+            poll = serializer.save()
+            return JsonResponse({'data': request.POST}, status=status.HTTP_200_OK)
+        else:
+            return JsonResponse(serializer.errors, status= status.HTTP_400_BAD_REQUEST)

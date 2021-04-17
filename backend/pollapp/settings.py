@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'allauth.account',
 
     'accounts.apps.AccountsConfig',
-    'user.apps.UserConfig'
+    'user.apps.UserConfig',
 ]
 
 MIDDLEWARE = [

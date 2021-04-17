@@ -4,7 +4,8 @@
       <h1 class="text-5xl mt-10 font-extralight">User Settings</h1>
       <div class="grid grid-cols-2 mt-20">
         <div class="flex flex-col justify-center items-center">
-          <FileInput class="w-48"
+          <FileInput
+            class="w-48"
             v-model="file"
             :default-src="'/static/images/defaultpic.svg'"
           ></FileInput>
@@ -17,55 +18,46 @@
             method="post"
             @submit.prevent=""
           >
-            <table>
-              <tr>
-                <td class="font-light">Username:</td>
-                <td>
-                  <input
-                    class="inpt my-3 ml-2"
-                    type="text"
-                    placeholder="Username"
-                    v-model="username"
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td class="font-light">First Name:</td>
-                <td>
-                  <input
-                    class="inpt my-3 ml-2"
-                    type="text"
-                    placeholder="First Name"
-                    v-model="firstName"
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td class="font-light">Last Name:</td>
-                <td>
-                  <input
-                    class="inpt my-3 ml-2"
-                    type="text"
-                    placeholder="Last Name"
-                    v-model="lastName"
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td class="font-light">E-Mail:</td>
-                <td>
-                  <input
-                    class="inpt my-3 ml-2"
-                    type="email"
-                    placeholder="E-Mail"
-                    v-model="email"
-                  />
-                </td>
-              </tr>
-            </table>
+            <div class="mt-4">
+              <input
+                class="inpt"
+                type="text"
+                v-model="username"
+              />
+              <h3 class="font-light text-xs">Username</h3>
+            </div>
+            <div class="mt-4">
+              <input
+                class="inpt"
+                type="text"
+                v-model="firstName"
+              />
+              <h3 class="font-light text-xs">First name</h3>
+            </div>
+            <div class="mt-4">
+              <input
+                class="inpt"
+                type="text"
+                v-model="lastName"
+              />
+              <h3 class="font-light text-xs">Last name</h3>
+            </div>
+            <div class="mt-4">
+              <input
+                class="inpt"
+                type="text"
+                v-model="email"
+              />
+              <h3 class="font-light text-xs">E-Mail</h3>
+            </div>
+
             <LoadingShape v-if="showIndicator" class="my-2" />
-            <p v-if="messages !== ''" class="text-primary-500 text-sm my-2">{{ messages }}</p>
-            <p v-if="errors !== ''" class="text-red-500 text-sm my-2">{{ errors }}</p>
+            <p v-if="messages !== ''" class="text-primary-500 text-sm my-2">
+              {{ messages }}
+            </p>
+            <p v-if="errors !== ''" class="text-red-500 text-sm my-2">
+              {{ errors }}
+            </p>
             <div class="my-5 px-3 w-full flex justify-between items-center">
               <a
                 class="btn hover:text-primary-500 transition ease-out duration-100"
@@ -111,13 +103,13 @@ export default {
 
     // indicator
     const showIndicator = ref(false);
-    const messages = ref('');
-    const errors = ref('');
+    const messages = ref("");
+    const errors = ref("");
 
     const saveChanges = () => {
       showIndicator.value = true;
-      messages.value = '';
-      errors.value = ''
+      messages.value = "";
+      errors.value = "";
 
       store.commit("setUsername", username.value);
       store.commit("setFirstName", firstName.value);
@@ -126,8 +118,7 @@ export default {
       store
         .dispatch("saveUserData")
         .then((res) => {
-          console.log(res);
-          messages.value = 'Data successfully changed!';
+          messages.value = "Data successfully changed!";
           showIndicator.value = false;
         })
         .catch((err) => {

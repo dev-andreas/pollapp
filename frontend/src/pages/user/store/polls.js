@@ -36,6 +36,9 @@ export const polls = {
         }
     },
     actions: {
+        createNewPoll(state, value) {
+
+        },
     },
     getters: {
         getPollsCreated(state) {

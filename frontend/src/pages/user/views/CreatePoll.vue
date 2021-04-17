@@ -8,89 +8,99 @@
 
           <div class="card w-phone pt-5 mb-5">
             <h2 class="text-2xl">Main Information</h2>
-            <h3 class="mt-4 mb-1 font-light">Poll name:</h3>
-            <input class="inpt" type="text" />
+            <div class="mt-4">
+              <input class="inpt" type="text" maxlength="128" v-model="name" />
+              <h3 class="font-light text-xs">Poll name</h3>
+            </div>
             <h3 class="mt-4 mb-1 font-light">Description:</h3>
-            <textarea class="tbox mb-5" cols="40" rows="5"></textarea>
+            <textarea class="tbox mb-5 focus:outline-none" cols="40" rows="5" maxlength="1024"
+              v-model="desc"></textarea>
           </div>
 
           <!-- Additional information card -->
 
           <div class="card w-phone pt-5">
             <h2 class="text-2xl">Additional Information</h2>
-            <h3 class="mt-4 mb-1 font-light">Starting date:</h3>
-            <input class="inpt text-primary-500 font-light" type="date" />
-            <h3 class="mt-4 mb-1 font-light">Ending date:</h3>
-            <input class="inpt text-primary-500 font-light" type="date" />
-            <h3 class="mt-4 mb-1 font-light">Votes amt:</h3>
-            <input class="inpt" type="number" />
-            <table class="my-4">
+            <div class="mt-4">
+              <input class="inpt font-mono text-sm" type="datetime-local" v-model="startingDate" />
+              <h3 class="font-light text-xs">Starting date</h3>
+            </div>
+            <div class="mt-4">
+              <input class="inpt font-mono text-sm" type="datetime-local" v-model="endingDate" />
+              <h3 class="font-light text-xs">Ending date</h3>
+            </div>
+            <div class="mt-4">
+              <input class="inpt" type="number" v-model="votesAmt" />
+              <h3 class="font-light text-xs">Votes amount per user</h3>
+            </div>
+            <table class="my-6">
               <tr>
                 <td>
-                  <h3 class="mt-4 mb-1 font-light self-start">
+                  <h3 class="mb-1 font-light self-start">
                     Less votes allowed?
                   </h3>
                 </td>
-                <td><input class="ml-2" type="checkbox" /></td>
+                <td>
+                  <input class="ml-2" type="checkbox" v-model="lessAllowed" />
+                </td>
               </tr>
               <tr>
                 <td>
-                  <h3 class="mt-1 mb-1 font-light self-start">
+                  <h3 class="mt-1 font-light self-start">
                     Show results when poll is running?
                   </h3>
                 </td>
-                <td><input class="ml-2" type="checkbox" /></td>
+                <td>
+                  <input class="ml-2" type="checkbox" v-model="showWhileRunning" />
+                </td>
               </tr>
             </table>
           </div>
         </div>
 
-         <!-- choices card -->
+        <!-- choices card -->
 
-        <div class="card w-phone pt-5 ml-5">
-          <h2 class="text-2xl">Choices</h2>
-          <form class="flex my-5" @submit.prevent="addChoice">
-            <input
-              class="inpt"
-              type="text"
-              placeholder="New Choice:"
-              v-model="choiceInput"
-            />
-            <input class="btn-primary ml-2" type="submit" value="New Choice" />
-          </form>
-          <ItemPagination
-            :items="choices"
-            @pageChanged="retrieveCurrentPage"
-            :itemsPerPage="10"
-          >
-            <template v-slot:default>
-              <table class="mt-5">
-                <tr>
-                  <th class="text-left text-xs">Name</th>
-                </tr>
-                <tr v-for="choice in currentPage" :key="choice.index">
-                  <td class="font-bold">{{ choice.item }}</td>
-                  <td>
-                    <p
-                      class="group cursor-pointer ml-4 p-0.5 border border-transparent hover:border-primary-500 hover:shadow transition ease-out duration-200"
-                      @click="editChoice(choice.index)"
-                    >
-                    <PencilSvg class="h-5 w-5 stroke-primary-500"></PencilSvg>
-                    </p>
-                  </td>
-                  <td>
-                    <p
-                      class="group cursor-pointer ml-4 p-0.5 border border-transparent hover:border-primary-500 hover:shadow transition ease-out duration-200"
-                      @click="choices.splice(choice.index, 1)"
-                    >
-                      <TrashSvg class="h-5 w-5 stroke-primary-500"></TrashSvg>
-                    </p>
-                  </td>
-                </tr>
-              </table>
-            </template>
-            <template v-slot:noItems> Currently no choices. </template>
-          </ItemPagination>
+        <div class="card w-phone pt-5 ml-5 justify-between">
+          <div class="flex flex-col justify-center items-center">
+            <h2 class="text-2xl">Choices</h2>
+            <form class="flex my-5" @submit.prevent="addChoice">
+              <input class="inpt" type="text" placeholder="New Choice:" v-model="choiceInput" />
+              <input class="btn-primary ml-2" type="submit" value="New Choice" />
+            </form>
+            <ItemPagination class="self-start" :items="choices" @pageChanged="retrieveCurrentPage" :itemsPerPage="10">
+              <template v-slot:default>
+                <table class="mt-5">
+                  <tr>
+                    <th class="text-left text-xs">Name</th>
+                  </tr>
+                  <tr v-for="choice in currentPage" :key="choice.index">
+                    <td class="font-bold">{{ choice.item }}</td>
+                    <td>
+                      <p class="group cursor-pointer ml-4 p-0.5 border border-transparent hover:border-primary-500 hover:shadow transition ease-out duration-200"
+                        @click="editChoice(choice.index)">
+                        <PencilSvg class="h-5 w-5 stroke-primary-500"></PencilSvg>
+                      </p>
+                    </td>
+                    <td>
+                      <p class="group cursor-pointer ml-4 p-0.5 border border-transparent hover:border-primary-500 hover:shadow transition ease-out duration-200"
+                        @click="choices.splice(choice.index, 1)">
+                        <TrashSvg class="h-5 w-5 stroke-primary-500"></TrashSvg>
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </template>
+              <template v-slot:noItems> Currently no choices. </template>
+            </ItemPagination>
+          </div>
+          <div class="flex flex-col justify-center items-center w-full">
+            <LoadingShape v-if="showIndicator"></LoadingShape>
+            <p v-if="messages !== ''" class="text-primary-500 text-sm my-2">{{ messages }}</p>
+            <p v-if="errors !== ''" class="text-red-500 text-sm my-2">{{ errors }}</p>
+            <button class="btn-primary self-end m-2" @click="onSubmit">
+              Create Poll
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -98,61 +108,128 @@
 </template>
 
 <script>
-import { ref } from "vue"
-import { useStore } from "vuex"
-import ItemPagination from "../../../components/ItemPagination.vue"
-import PencilSvg from "../../../components/svgpaths/PencilSvg.vue"
-import TrashSvg from "../../../components/svgpaths/TrashSvg.vue"
+  import { ref, watch } from "vue";
+  import { useStore } from "vuex";
+  import moment from "moment";
+  import { makeRequest } from "../../../assets/utils.js";
+  import LoadingShape from '../../../components/LoadingShape.vue'
+  import ItemPagination from "../../../components/ItemPagination.vue";
+  import PencilSvg from "../../../components/svgpaths/PencilSvg.vue";
+  import TrashSvg from "../../../components/svgpaths/TrashSvg.vue";
 
-export default {
-  components: {
-    ItemPagination,
-    PencilSvg,
-    TrashSvg,
-  },
-  setup() {
-    const store = useStore();
-    store.commit("setCurrentPage", 2);
+  export default {
+    components: {
+      ItemPagination,
+      PencilSvg,
+      TrashSvg,
+      LoadingShape,
+    },
+    setup() {
+      const store = useStore();
+      store.commit("setCurrentPage", 2);
 
-    // choices
-    const choices = ref([]);
-    const currentPage = ref([]);
+      // fields
+      const name = ref("");
+      const desc = ref("");
+      const startingDate = ref("");
+      const endingDate = ref("");
+      const votesAmt = ref(1);
+      const lessAllowed = ref(false);
+      const showWhileRunning = ref(false);
 
-    const choiceInput = ref("");
-    const currentItem = ref(null);
-
-    const retrieveCurrentPage = (items) => {
-      currentPage.value = items;
-    };
-
-    const addChoice = () => {
-      if (currentItem.value === null) {
-        if (choiceInput.value !== "") {
-          choices.value.push(choiceInput.value);
+      watch(votesAmt, (after, before) => {
+        if (after < 1) {
+          votesAmt.value = 1;
         }
-      } else {
-        choices.value[currentItem.value] = choiceInput.value;
-        currentItem.value = null;
-      }
-      choiceInput.value = "";
-    };
+      });
 
-    const editChoice = (index) => {
-      currentItem.value = index;
-      choiceInput.value = choices.value[index];
-    };
+      // choices
+      const choices = ref([]);
+      const currentPage = ref([]);
 
-    return {
-      choices,
-      retrieveCurrentPage,
-      currentPage,
-      choiceInput,
-      currentItem,
-      addChoice,
-      editChoice,
-    };
-  },
-};
+      const choiceInput = ref("");
+      const currentItem = ref(null);
+
+      const retrieveCurrentPage = (items) => {
+        currentPage.value = items;
+      };
+
+      const addChoice = () => {
+        if (currentItem.value === null) {
+          if (choiceInput.value !== "") {
+            choices.value.push(choiceInput.value);
+          }
+        } else {
+          choices.value[currentItem.value] = choiceInput.value;
+          currentItem.value = null;
+        }
+        choiceInput.value = "";
+      };
+
+      const editChoice = (index) => {
+        currentItem.value = index;
+        choiceInput.value = choices.value[index];
+      };
+
+
+      // form
+
+      const showIndicator = ref(false);
+      const messages = ref('');
+      const errors = ref('');
+
+      const onSubmit = () => {
+        showIndicator.value = true;
+        messages.value = '';
+        errors.value = ''
+
+        const form = new FormData();
+        form.append("title", name.value);
+        form.append("description", desc.value);
+        form.append("votes_amt", votesAmt.value);
+        form.append("less_allowed", lessAllowed.value);
+        form.append("show_while_running", showWhileRunning.value);
+        form.append("date_to_start", moment(startingDate.value).toISOString());
+        form.append("date_to_end", moment(endingDate.value).toISOString());
+        for (var i = 0; i < choices.value.length; i++) {
+          form.append("choices", choices.value[i]);
+        }
+
+        makeRequest("POST", form, store.getters.getBaseUrl + "api/create_poll/")
+          .then((res) => {
+            messages.value = 'Data successfully changed!';
+            showIndicator.value = false;
+          })
+          .catch((err) => {
+            errors.value = Object.values(err.response.data)[0][0];
+            showIndicator.value = false;
+          });
+      };
+
+      return {
+        choices,
+        retrieveCurrentPage,
+        currentPage,
+        choiceInput,
+        currentItem,
+        addChoice,
+        editChoice,
+
+        name,
+        desc,
+        startingDate,
+        endingDate,
+        votesAmt,
+        lessAllowed,
+        showWhileRunning,
+
+        showIndicator,
+        messages,
+        errors,
+        onSubmit,
+      };
+    },
+  };
 </script>
 
 <style>

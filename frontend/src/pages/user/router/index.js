@@ -17,6 +17,11 @@ const routes = [
     name: 'NewPoll',
     component: () => import('../views/CreatePoll.vue')
   },
+  {
+    path: '/poll/',
+    name: 'Poll',
+    component: () => import('../views/Poll.vue')
+  },
 
   // catchall 404
   {
