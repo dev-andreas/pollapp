@@ -1,4 +1,5 @@
 import { makeRequest } from "../../../assets/utils.js"
+import moment from "moment";
 
 export const user = {
     state: {
@@ -52,7 +53,7 @@ export const user = {
             return state.user.email;
         },
         getDateJoined(state) {
-            return state.user.date_joined;
+            return moment(state.user.date_joined).toLocaleString();
         },
         getFirstName(state) {
             return state.user.first_name;

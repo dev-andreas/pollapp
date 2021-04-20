@@ -18,6 +18,7 @@ export default {
 
     onMounted(() => {
       store.dispatch('loadUserData');
+      store.dispatch('loadPollData');
     });
 
     const currentPage = computed(() => {

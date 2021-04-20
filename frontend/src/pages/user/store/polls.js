@@ -1,24 +1,12 @@
+import { makeRequest } from '../../../assets/utils.js'
+
 export const polls = {
     state: {
         pollsVoted: [
-            { hash: '12345678', name: 'Testing Poll' },
-            { hash: '98374320', name: 'Testing Poll1' },
-            { hash: '98841046', name: 'Testing Poll2' },
-            { hash: '82791348', name: 'Testing Poll3' },
-            { hash: '83713400', name: 'Testing Poll4' },
-            { hash: '09861904', name: 'Testing Poll5' },
-            { hash: '90019901', name: 'Testing Poll6' },
-            { hash: '81443879', name: 'Testing Poll7' },
+
         ],
         pollsCreated: [
-            { hash: '12345678', name: 'Testing Poll' },
-            { hash: '98374320', name: 'Testing Poll1' },
-            { hash: '98841046', name: 'Testing Poll2' },
-            { hash: '82791348', name: 'Testing Poll3' },
-            { hash: '83713400', name: 'Testing Poll4' },
-            { hash: '09861904', name: 'Testing Poll5' },
-            { hash: '90019901', name: 'Testing Poll6' },
-            { hash: '81443879', name: 'Testing Poll7' },
+
         ],
     },
     mutations: {
@@ -36,8 +24,14 @@ export const polls = {
         }
     },
     actions: {
-        createNewPoll(state, value) {
+        loadPollData(store) {
+            makeRequest('GET', store.rootState.baseUrl + 'api/user/polls/')
+                .then(res => { 
 
+                });
+
+            //store.commit('setPollsCreated', JSON.parse(document.getElementById('polls_created').textContent));
+            //store.commit('setPollsVoted', JSON.parse(document.getElementById('polls_voted').textContent));
         },
     },
     getters: {

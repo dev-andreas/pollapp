@@ -4,6 +4,7 @@
       <h1 class="text-5xl mt-10 font-extralight">Create Poll</h1>
       <div class="flex items-stretch mt-10 mb-20">
         <div class="flex flex-col">
+          
           <!-- Main information card -->
 
           <div class="card w-phone pt-5 mb-5">
@@ -69,12 +70,12 @@
             </form>
             <ItemPagination class="self-start" :items="choices" @pageChanged="retrieveCurrentPage" :itemsPerPage="10">
               <template v-slot:default>
-                <table class="mt-5">
+                <table class="mt-5 mx-3">
                   <tr>
                     <th class="text-left text-xs">Name</th>
                   </tr>
                   <tr v-for="choice in currentPage" :key="choice.index">
-                    <td class="font-bold">{{ choice.item }}</td>
+                    <td class="font-bold break-all">{{ choice.item }}</td>
                     <td>
                       <p class="group cursor-pointer ml-4 p-0.5 border border-transparent hover:border-primary-500 hover:shadow transition ease-out duration-200"
                         @click="editChoice(choice.index)">
@@ -95,7 +96,6 @@
           </div>
           <div class="flex flex-col justify-center items-center w-full">
             <LoadingShape v-if="showIndicator"></LoadingShape>
-            <p v-if="messages !== ''" class="text-primary-500 text-sm my-2">{{ messages }}</p>
             <p v-if="errors !== ''" class="text-red-500 text-sm my-2">{{ errors }}</p>
             <button class="btn-primary self-end m-2" @click="onSubmit">
               Create Poll
@@ -109,6 +109,7 @@
 
 <script>
   import { ref, watch } from "vue";
+  import { useRouter, useRoute } from "vue-router"
   import { useStore } from "vuex";
   import moment from "moment";
   import { makeRequest } from "../../../assets/utils.js";
@@ -127,6 +128,9 @@
     setup() {
       const store = useStore();
       store.commit("setCurrentPage", 2);
+
+      const route = useRoute();
+      const router = useRouter();
 
       // fields
       const name = ref("");
@@ -175,12 +179,10 @@
       // form
 
       const showIndicator = ref(false);
-      const messages = ref('');
       const errors = ref('');
 
       const onSubmit = () => {
         showIndicator.value = true;
-        messages.value = '';
         errors.value = ''
 
         const form = new FormData();
@@ -197,7 +199,7 @@
 
         makeRequest("POST", form, store.getters.getBaseUrl + "api/create_poll/")
           .then((res) => {
-            messages.value = 'Data successfully changed!';
+            router.push({name: 'Home'})
             showIndicator.value = false;
           })
           .catch((err) => {
@@ -224,7 +226,6 @@
         showWhileRunning,
 
         showIndicator,
-        messages,
         errors,
         onSubmit,
       };

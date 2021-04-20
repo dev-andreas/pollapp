@@ -24,7 +24,7 @@
       </tr>
       <td class="font-bold">Joined:</td>
       <td>
-        <p class="ml-3">{{ $store.getters.getUser.date_joined }}</p>
+        <p class="ml-3">{{ $store.getters.getDateJoined }}</p>
       </td>
     </table>
     <router-link

@@ -19,10 +19,10 @@
             </tr>
             <tr v-for="poll in polls" :key="poll.item.hash">
               <td class="text-left">
-                <p class="font-bold">{{ poll.item.name }}</p>
+                <p class="font-bold break-all">{{ poll.item.title }}</p>
               </td>
               <td class="text-left">
-                <p class="ml-4 text-xs">{{ poll.item.hash }}</p>
+                <p class="ml-4 text-xs">{{ poll.item.id_hashed }}</p>
               </td>
               <td>
                 <p
@@ -45,7 +45,7 @@
       </Pagination>
     </div>
     <div class="flex w-full pr-2 mt-8 justify-end">
-      <router-link class="btn-primary mx-2" to="">Create new poll</router-link>
+      <router-link class="btn-primary mx-2" :to="{ name: 'NewPoll' }">Create new poll</router-link>
     </div>
   </div>
 </template>

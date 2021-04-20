@@ -14,6 +14,10 @@ class UserSerializer(ModelSerializer):
                   'last_name', 'email', 'date_joined']
         read_only_fields = ['date_joined']
 
+class PollReprSerializer(ModelSerializer):
+    class Meta:
+        model = Poll
+        fields = ['title', 'id_hashed', ]
 
 class PollSerializer(ModelSerializer):
 
@@ -22,7 +26,7 @@ class PollSerializer(ModelSerializer):
     class Meta:
         model = Poll
         fields = '__all__'
-        read_only_fields = ['date_created', 'owner', 'voters', ]
+        read_only_fields = ['date_created', 'owner', 'voters', 'id_hashed']
         extra_kwargs = {
             "title": {"error_messages": {"blank": "Title must not be empty!"}},
             "description": {"error_messages": {"blank": "Description must not be empty!"}},
@@ -31,7 +35,6 @@ class PollSerializer(ModelSerializer):
         }
 
     def __init__(self, instance=None, data=None, user=None, **kwargs):
-        assert user, 'You need to define the owner (user=request.user)'
         self.user = user
         super().__init__(instance=instance, data=data, **kwargs)
 
@@ -83,3 +86,10 @@ class PollSerializer(ModelSerializer):
 
     def update(self, instance, validated_data):
         return super().update(instance, validated_data)
+        
+
+class ChoiceSerializer(ModelSerializer):
+    class Meta:
+        model = Choice
+        fields = '__all__'
+        read_only_fields = ['name', 'poll']

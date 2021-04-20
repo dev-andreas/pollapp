@@ -9,5 +9,7 @@ urlpatterns = [
 
     # apis
     path('api/user/', views.UserAPI.as_view(), name='user_data'),
-    path('api/create_poll/', views.CreatePollAPI.as_view(), name="create_poll")
+    path('api/create_poll/', views.CreatePollAPI.as_view(), name='create_poll'),
+    path('api/poll/<str:id_hashed>/', views.PollAPI.as_view(), name='poll'),
+    path('api/user/polls/', views.PollReprAPI.as_view(), name='user_polls')
 ]

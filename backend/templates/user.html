@@ -3,6 +3,14 @@
 {% block content %}
 
     {{ user|json_script:"user" }}
+    {{ polls_created|json_script:'polls_created' }}
+    {{ polls_voted|json_script:'polls_voted' }}
+
+    <ul class="hidden">
+        {% for message in messages %}
+        <li>{{message}}</li>
+        {% endfor %}
+    </ul>
     
     <div id="app"></div>
     {% include 'generics/footer.html' %}
