@@ -45,7 +45,7 @@ body {
 }
 
 .card {
-    @apply flex flex-col border items-center bg-white shadow-sm hover:shadow-md transition ease-out duration-500;
+    @apply flex flex-col border bg-white shadow-sm hover:shadow-md transition ease-out duration-500;
 }
 
 nav {
@@ -67,4 +67,19 @@ nav {
 .appear-enter-to,
 .appear-leave-from {
     @apply opacity-100 scale-100;
+}
+
+.rise-enter-active,
+.rise-leave-active {
+    @apply transition ease-out duration-700;
+}
+
+.rise-enter-from,
+.rise-leave-to {
+    @apply transform scale-y-0 origin-bottom
+}
+
+.rise-enter-to,
+.rise-leave-from {
+    @apply transform scale-y-100 origin-bottom
 }

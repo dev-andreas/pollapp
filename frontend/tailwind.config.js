@@ -45,6 +45,7 @@ module.exports = {
         body: ['Roboto'],
       },
       width: {
+        'middle': '40rem',
         'desktop': '50rem',
         'phone': '25rem',
       },

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p v-if="pagesAmt > 1" class="flex justify-center items-center font-light">
+    <p v-if="items.length > itemsPerPage" class="flex justify-center items-center font-light">
       Page
       <button @click="decPage">
         <svg
@@ -115,6 +115,7 @@ export default {
 
     return {
       items,
+      itemsPerPage,
       currentPage,
       pagesAmt,
       incPage,

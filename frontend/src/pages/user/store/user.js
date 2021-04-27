@@ -1,5 +1,5 @@
 import { makeRequest } from "../../../assets/utils.js"
-import moment from "moment";
+import { DateTime } from "luxon";
 
 export const user = {
     state: {
@@ -53,7 +53,7 @@ export const user = {
             return state.user.email;
         },
         getDateJoined(state) {
-            return moment(state.user.date_joined).toLocaleString();
+            return DateTime.fromISO(state.user.date_joined).toLocaleString(DateTime.DATETIME_FULL);
         },
         getFirstName(state) {
             return state.user.first_name;

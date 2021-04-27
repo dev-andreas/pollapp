@@ -23,6 +23,12 @@ const routes = [
     component: () => import('../views/Poll.vue'),
     props: true
   },
+  {
+    path: '/vote/:id_hashed/',
+    name: 'Vote',
+    component: () => import('../views/Voting.vue'),
+    props: true
+  },
 
   // catchall 404
   {

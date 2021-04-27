@@ -7,7 +7,7 @@
           
           <!-- Main information card -->
 
-          <div class="card w-phone pt-5 mb-5">
+          <div class="card w-phone pt-5 mb-5 items-center">
             <h2 class="text-2xl">Main Information</h2>
             <div class="mt-4">
               <input class="inpt" type="text" maxlength="128" v-model="name" />
@@ -20,7 +20,7 @@
 
           <!-- Additional information card -->
 
-          <div class="card w-phone pt-5">
+          <div class="card w-phone pt-5 items-center">
             <h2 class="text-2xl">Additional Information</h2>
             <div class="mt-4">
               <input class="inpt font-mono text-sm" type="datetime-local" v-model="startingDate" />
@@ -61,7 +61,7 @@
 
         <!-- choices card -->
 
-        <div class="card w-phone pt-5 ml-5 justify-between">
+        <div class="card w-phone pt-5 ml-5 justify-between items-center">
           <div class="flex flex-col justify-center items-center">
             <h2 class="text-2xl">Choices</h2>
             <form class="flex my-5" @submit.prevent="addChoice">
@@ -111,7 +111,7 @@
   import { ref, watch } from "vue";
   import { useRouter, useRoute } from "vue-router"
   import { useStore } from "vuex";
-  import moment from "moment";
+  import { DateTime } from "luxon";
   import { makeRequest } from "../../../assets/utils.js";
   import LoadingShape from '../../../components/LoadingShape.vue'
   import ItemPagination from "../../../components/ItemPagination.vue";
@@ -191,8 +191,8 @@
         form.append("votes_amt", votesAmt.value);
         form.append("less_allowed", lessAllowed.value);
         form.append("show_while_running", showWhileRunning.value);
-        form.append("date_to_start", moment(startingDate.value).toISOString());
-        form.append("date_to_end", moment(endingDate.value).toISOString());
+        form.append("date_to_start", DateTime.fromISO(startingDate.value).toUTC().toString());
+        form.append("date_to_end", DateTime.fromISO(endingDate.value).toUTC().toString());
         for (var i = 0; i < choices.value.length; i++) {
           form.append("choices", choices.value[i]);
         }

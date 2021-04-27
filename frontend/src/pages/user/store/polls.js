@@ -21,13 +21,14 @@ export const polls = {
         },
         addVotedPoll(state, value) {
             state.pollsVoted.push(value)
-        }
+        },
     },
     actions: {
         loadPollData(store) {
-            makeRequest('GET', store.rootState.baseUrl + 'api/user/polls/')
-                .then(res => { 
-
+            makeRequest('GET', '', store.rootState.baseUrl + 'api/user/polls/')
+                .then(res => {
+                    store.commit('setPollsCreated', res.data.polls_created);
+                    store.commit('setPollsVoted', res.data.polls_voted);
                 });
 
             //store.commit('setPollsCreated', JSON.parse(document.getElementById('polls_created').textContent));
