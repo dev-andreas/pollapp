@@ -71,8 +71,8 @@ class PollAPI(APIView):
 
     def get(self, request, *args, **kwargs):
         choices = None
-
         if self.poll.show_while_running or (not self.poll.show_while_running and self.poll.date_to_end <= timezone.now()):
+            print(True)
             choices = ChoiceSerializer(
                 self.poll.choice_set.all(), many=True).data
         else:

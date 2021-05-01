@@ -1,5 +1,5 @@
 <template>
-  <div class="card py-4 col-span-1 justify-between">
+  <div class="card py-4 col-span-1 justify-between px-2">
     <div class="flex flex-col items-center">
       <h2 class="text-2xl">Polls Voted</h2>
       <Pagination
@@ -50,7 +50,7 @@
     >
       <input class="inpt" type="text" placeholder="hash" v-model="pollHash" />
       <input
-        class="btn-primary mx-2"
+        class="btn-primary"
         type="submit"
         value="Visit poll"
         @click="visitPoll"

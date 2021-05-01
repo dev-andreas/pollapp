@@ -6,7 +6,7 @@
         <div class="flex flex-col justify-center items-center">
           <FileInput
             :default-src="
-              $store.getters.getUser.profile_pic == ''
+              $store.getters.getUser.profile_pic == null
                 ? '/static/images/defaultpic.svg'
                 : $store.getters.getUser.profile_pic
             "
@@ -75,6 +75,8 @@ export default {
   setup() {
     const store = useStore();
     store.commit("setCurrentPage", 1);
+
+    console.log(store.getters.getProfilePic);
 
     // form
     const username = ref(store.getters.getUser.username);

@@ -16,19 +16,23 @@
           Please tick the boxes below to give a vote.
         </p>
 
-        <div v-for="choice in choices" :key="choice.id">
-          <p class="text-lg font-bold">
-            {{ choice.name }}
-            <input
-              class="ml-3"
-              :id="choice.id"
-              :value="choice.id"
-              name="choice"
-              type="checkbox"
-              v-model="checkedChoices"
-            />
-          </p>
-        </div>
+        <table>
+          <tr v-for="choice in choices" :key="choice.id">
+            <td class="text-lg font-bold">
+              {{ choice.name }}
+            </td>
+            <td>
+              <input
+                class="ml-3"
+                :id="choice.id"
+                :value="choice.id"
+                name="choice"
+                type="checkbox"
+                v-model="checkedChoices"
+              />
+            </td>
+          </tr>
+        </table>
 
         <div class="flex flex-col items-center justify-end mt-5">
           <LoadingShape v-if="loading" class="mb-2" />
@@ -56,7 +60,7 @@ import { ref, onMounted, watch } from "vue";
 import { useRouter, useRoute, onBeforeRouteUpdate } from "vue-router";
 import { useStore } from "vuex";
 import { useFetching, useSubmit, makeRequest } from "../../../assets/utils.js";
-import NotExist from "../../../components/poll/NotExist.vue"
+import NotExist from "../../../components/poll/NotExist.vue";
 import LoadingShape from "../../../components/LoadingShape.vue";
 import CheckSvg from "../../../components/svgpaths/CheckSvg.vue";
 import ArrowLeftSvg from "../../../components/svgpaths/ArrowLeftSvg.vue";
@@ -91,15 +95,15 @@ export default {
       fetchPoll();
     });
 
-    
     onBeforeRouteUpdate((to, from) => {
       route.params.id_hashed = to.params.id_hashed;
       fetchPoll();
     });
 
-
     const fetchPoll = () => {
-      fetchData(store.getters.getBaseUrl + `api/poll/${route.params.id_hashed}/`).then((res) => {
+      fetchData(
+        store.getters.getBaseUrl + `api/poll/${route.params.id_hashed}/`
+      ).then((res) => {
         poll.value = res.data.poll;
         choices.value = res.data.choices;
         poll.value.owner = res.data.poll_owner;
@@ -113,10 +117,13 @@ export default {
     const submitChoices = () => {
       const form = new FormData();
       for (let i = 0; i < checkedChoices.value.length; i++) {
-        form.append('votes', checkedChoices.value[i]);
+        form.append("votes", checkedChoices.value[i]);
       }
 
-      submit(store.getters.getBaseUrl + `api/vote/${route.params.id_hashed}/`, form);
+      submit(
+        store.getters.getBaseUrl + `api/vote/${route.params.id_hashed}/`,
+        form
+      );
     };
 
     return {

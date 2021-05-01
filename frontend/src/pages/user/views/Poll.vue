@@ -143,11 +143,18 @@ export default {
 
     const router = useRouter();
     const route = useRoute();
+  
 
     // poll stuff
 
     const poll = ref("");
-    const choices = ref([]);
+    const choices = ref([
+      {name: 'PHP', votes: 3, },
+      {name: 'C#', votes: 5, },
+      {name: 'Python', votes: 10, },
+      {name: 'JavaScript', votes: 7, },
+      {name: 'Java', votes: 8, },
+    ]);
     const showResults = ref(false);
 
     const owner = ref({});
@@ -189,8 +196,8 @@ export default {
 
       fetchData(store.getters.getBaseUrl + `api/poll/${route.params.id_hashed}/`).then((res) => {
         poll.value = res.data.poll;
-        choices.value = res.data.choices.reverse();
-        showResults.value = choices.value[0].votes ? true : false;
+        //choices.value = res.data.choices.reverse();
+        showResults.value = typeof choices.value[0].votes !== 'undefined';
         owner.value = res.data.poll_owner;
       });
 

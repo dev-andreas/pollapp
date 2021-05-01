@@ -1,5 +1,5 @@
 <template>
-  <div class="card py-4 col-span-1 justify-between">
+  <div class="card py-4 col-span-1 justify-between px-2">
     <div class="flex flex-col items-center">
       <h2 class="text-2xl">Polls Created</h2>
       <Pagination
@@ -59,7 +59,7 @@
       </Pagination>
     </div>
     <div class="flex w-full pr-2 mt-8 justify-end">
-      <router-link class="btn-primary mx-2" :to="{ name: 'NewPoll' }"
+      <router-link class="btn-primary" :to="{ name: 'NewPoll' }"
         >Create new poll</router-link
       >
     </div>
