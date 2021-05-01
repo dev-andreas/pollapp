@@ -8,7 +8,7 @@ from accounts.models import User
 from django.utils import timezone
 
 class Poll(models.Model):
-    title = models.CharField(max_length=256)
+    title = models.CharField(max_length=128)
     description = models.CharField(max_length=1024)
     votes_amt = models.PositiveSmallIntegerField(default=1)
     less_allowed = models.BooleanField(default=False)

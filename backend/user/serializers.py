@@ -11,15 +11,20 @@ class UserSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = ['username', 'first_name',
-                  'last_name', 'email', 'date_joined']
+                  'last_name', 'email', 'date_joined', 'profile_pic']
         read_only_fields = ['date_joined']
+        extra_kwargs = {'profile_pic': {'required': False}} 
 
-class PollReprSerializer(ModelSerializer):
-    class Meta:
-        model = Poll
-        fields = ['title', 'id_hashed', ]
 
 class PollSerializer(ModelSerializer):
+    class Meta:
+        model = Poll
+        fields = '__all__'
+        read_only_fields = ['votes_amt', 'less_allowed', 'show_while_running',
+                            'date_created', 'date_to_start', 'date_to_end', 'owner', 'voters', 'id_hashed']
+
+
+class PollCreationSerializer(ModelSerializer):
 
     choices = serializers.ListField()
 
@@ -36,6 +41,8 @@ class PollSerializer(ModelSerializer):
 
     def __init__(self, instance=None, data=None, user=None, **kwargs):
         self.user = user
+        self.fields['choices'].error_messages.update(
+            {"required": "There must be at least two choices!"})
         super().__init__(instance=instance, data=data, **kwargs)
 
     def validate(self, attrs):
@@ -53,7 +60,7 @@ class PollSerializer(ModelSerializer):
                 'Ending date must occur after starting date!')
         if attrs['less_allowed'] and attrs['votes_amt'] == 1:
             raise serializers.ValidationError(
-                'Less votes are only allowed if votes amount per user is higher than one!')
+                'Less votes are only allowed if votes amount is higher than one!')
         if len(attrs['choices']) < 2:
             raise serializers.ValidationError(
                 'There must be at least two choices!')
@@ -86,10 +93,69 @@ class PollSerializer(ModelSerializer):
 
     def update(self, instance, validated_data):
         return super().update(instance, validated_data)
-        
+
 
 class ChoiceSerializer(ModelSerializer):
     class Meta:
         model = Choice
         fields = '__all__'
         read_only_fields = ['name', 'poll']
+
+
+class PollRunningChoiceSerializer(ModelSerializer):
+    class Meta:
+        model = Choice
+        exclude = ['votes']
+        read_only_fields = ['name', 'poll']
+
+
+class VotingSerializer(Serializer):
+    votes = serializers.ListField()
+
+    def __init__(self, instance=None, data=None, poll=None, user=None, **kwargs):
+        self.poll = poll
+        self.user = user
+        super().__init__(instance=instance, data=data, **kwargs)
+
+    def validate(self, attrs):
+        if len(attrs['votes']) == 0:
+            raise serializers.ValidationError(
+                'You must at least select one choice!')
+
+        if self.poll.less_allowed:
+            if len(attrs['votes']) > self.poll.votes_amt:
+                raise serializers.ValidationError(
+                    'More than {amt} choices are not allowed!'.format(amt=self.poll.votes_amt))
+        elif not len(attrs['votes']) == self.poll.votes_amt:
+            raise serializers.ValidationError(
+                'You must select {amt} choice(s)!'.format(amt=self.poll.votes_amt))
+
+        for vote in attrs['votes']:
+            choice = self.poll.choice_set.filter(id=int(vote))
+            if not choice.exists():
+                raise serializers.ValidationError(
+                    'Choices don\'t refer to this poll!')
+
+        if self.poll.voters.filter(id=self.user.id).exists():
+            raise serializers.ValidationError(
+                'You already voted for this poll.')
+
+        if self.poll.date_to_start > timezone.now():
+            raise serializers.ValidationError('Poll has not started yet!')
+
+        if self.poll.date_to_end < timezone.now():
+            raise serializers.ValidationError('Deadline is over!')
+
+        return super().validate(attrs)
+
+    def create(self, validated_data):
+
+        for vote in validated_data['votes']:
+            choice = Choice.objects.get(id=vote)
+            choice.votes += 1
+            choice.save()
+
+        self.poll.voters.add(self.user)
+        self.poll.save()
+
+        return self.poll
