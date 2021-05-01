@@ -1,10 +1,11 @@
 from rest_framework.serializers import ModelSerializer, Serializer
 from rest_framework import serializers
 
-from accounts.models import User
-
-from .models import Poll, Choice
 from django.utils import timezone
+from django.forms import ModelForm
+
+from accounts.models import User
+from .models import Poll, Choice
 
 
 class UserSerializer(ModelSerializer):
@@ -13,7 +14,14 @@ class UserSerializer(ModelSerializer):
         fields = ['username', 'first_name',
                   'last_name', 'email', 'date_joined', 'profile_pic']
         read_only_fields = ['date_joined']
-        extra_kwargs = {'profile_pic': {'required': False}} 
+        extra_kwargs = {'profile_pic': {'required': False}}
+
+
+class UserForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name',
+                  'email', 'profile_pic']
 
 
 class PollSerializer(ModelSerializer):

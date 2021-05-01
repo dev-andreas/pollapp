@@ -29,7 +29,7 @@ class Poll(models.Model):
             return
         
         # Creating poll identification "hash"
-        # Made out of creation year, month and poll id % 9999 (I don't think more than 1,000,000 polls will be created per month...)
+        # Made out of creation year, month and poll id % 999999 (I don't think more than 1,000,000 polls will be created per month...)
         # Then everything will be encoded to hexadecimal
 
         id_hashed = hex(int('{id}{year}{month}'.format(

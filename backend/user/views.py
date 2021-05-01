@@ -10,7 +10,7 @@ from rest_framework.views import APIView
 # Create your views here.
 
 from .decorators import user_authenticated, user_unauthenticated
-from .serializers import UserSerializer, PollSerializer, PollCreationSerializer, ChoiceSerializer, PollRunningChoiceSerializer, VotingSerializer
+from .serializers import UserSerializer, PollSerializer, PollCreationSerializer, ChoiceSerializer, PollRunningChoiceSerializer, VotingSerializer, UserForm
 from .validators import PollValidator
 from .models import Poll, Choice
 
@@ -37,11 +37,10 @@ class UserAPI(APIView):
         return JsonResponse(UserSerializer(self.request.user).data)
 
     def post(self, request, *args, **kwargs):
-        print(request.POST)
-        serializer = UserSerializer(self.request.user, data=request.POST)
+        serializer = UserForm(request.POST, request.FILES, instance=self.request.user)
         if serializer.is_valid():
             user = serializer.save()
-            return JsonResponse(serializer.data, status=status.HTTP_200_OK)
+            return Response('Successfully changed user profile.', status=status.HTTP_200_OK)
         return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

@@ -9,15 +9,15 @@
 }
 
 input {
-    @apply bg-transparent focus:outline-none 
+    @apply bg-transparent focus:outline-none;
 }
 
 button {
-    @apply bg-transparent focus:outline-none 
+    @apply bg-transparent focus:outline-none;
 }
 
 body {
-    @apply bg-backg-light
+    @apply bg-backg-light;
 }
 
 .tinted {

@@ -110,7 +110,7 @@ export default {
           showIndicator.value = false;
         })
         .catch((err) => {
-          errors.value = Object.values(err.response.data)[0][0];
+          errors.value = err.response.data;
           showIndicator.value = false;
         });
     };
