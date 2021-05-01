@@ -12,23 +12,29 @@ export function makeRequest(method, data, url) {
         xsrfCookieName: 'csrftoken',
         xsrfHeaderName: 'X-CSRFToken'
     });
-};
+}
 
-export function useFetching(path) {
+export function useFetching() {
     const notFound = ref(false);
     const fetching = ref(true);
 
-    const fetchData = () => {
+    const fetchData = (path) => {
         notFound.value = false;
         fetching.value = true;
 
-        return makeRequest("GET", "", path)
-            .catch((err) => {
-                notFound.value = true;
-            })
-            .finally(() => {
-                fetching.value = false;
-            });
+        return new Promise((resolve, reject) => {
+            makeRequest("GET", "", path)
+                .then((res) => {
+                    resolve(res);
+                })
+                .catch((err) => {
+                    notFound.value = true;
+                    reject(err);
+                })
+                .finally(() => {
+                    fetching.value = false;
+                });
+        });
     };
 
     return {
@@ -38,25 +44,30 @@ export function useFetching(path) {
     };
 }
 
-export function useSubmit(path) {
+export function useSubmit() {
     const response = ref('');
     const error = ref('');
     const loading = ref(false);
 
-    const submit = (data) => {
+    const submit = (path, data) => {
         loading.value = true;
         response.value = '';
         error.value = '';
-        return makeRequest("POST", data, path)
-            .then(res => {
-                response.value = res;
-            })
-            .catch(err => {
-                error.value = err;
-            })
-            .finally(() => {
-                loading.value = false;
-            });
+
+        return new Promise((resolve, reject) => {
+            makeRequest("POST", data, path)
+                .then(res => {
+                    response.value = res;
+                    resolve(res);
+                })
+                .catch(err => {
+                    error.value = err;
+                    reject(err);
+                })
+                .finally(() => {
+                    loading.value = false;
+                });
+        });
     };
     return {
         response,

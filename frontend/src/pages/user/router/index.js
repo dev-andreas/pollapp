@@ -29,6 +29,12 @@ const routes = [
     component: () => import('../views/Voting.vue'),
     props: true
   },
+  {
+    path: '/settings/:id_hashed/',
+    name: 'PollSettings',
+    component: () => import('../views/PollSettings.vue'),
+    props: true
+  },
 
   // catchall 404
   {

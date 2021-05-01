@@ -39,6 +39,7 @@ module.exports = {
         backg: {
           light: '#fafafa',
           dark: '#05181a',
+          trans: '#00000066'
         }
       },
       fontFamily: {

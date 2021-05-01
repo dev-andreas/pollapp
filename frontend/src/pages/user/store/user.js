@@ -1,4 +1,4 @@
-import { makeRequest } from "../../../assets/utils.js"
+import { makeRequest } from "../../../assets/utils.js";
 import { DateTime } from "luxon";
 
 export const user = {
@@ -8,8 +8,10 @@ export const user = {
             email: '',
             first_name: '',
             last_name: '',
-            date_joined: ''
+            date_joined: '',
+            profile_pic: '',
         },
+        profile_pic_blob: null,
     },
     mutations: {
         setUser(state, value) {
@@ -26,7 +28,10 @@ export const user = {
         },
         setEmail(state, value) {
             state.user.email = value;
-        }
+        },
+        setProfilePic(state, value) {
+            state.profile_pic_blob = value;
+        },
     },
     actions: {
         loadUserData(store) {
@@ -39,7 +44,14 @@ export const user = {
             data.append("first_name", store.getters.getFirstName);
             data.append("last_name", store.getters.getLastName);
             data.append("email", store.getters.getEmail);
-            return makeRequest('POST', data, store.getters.getBaseUrl + 'api/user/');
+            console.log(store.state.profile_pic_blob);
+            if (store.state.profile_pic_blob !== null) {
+                data.append("profile_pic", store.state.profile_pic_blob);
+            }
+            return makeRequest('POST', data, store.getters.getBaseUrl + 'api/user/')
+            .finally(() => {
+                store.state.profile_pic_blob = null;
+            });
         }
     },
     getters: {
@@ -60,6 +72,9 @@ export const user = {
         },
         getLastName(state) {
             return state.user.last_name;
+        },
+        getProfilePic(state) {
+            return state.user.profile_pic;
         }
     },
 };

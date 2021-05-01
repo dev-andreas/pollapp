@@ -1,3 +1,9 @@
 # pollapp
 
-Simple poll website with Django, Vue, and Tailwind.
+Simple poll website using Django, Vue, and Tailwind.
+
+## Todo:
+- Add profile pic upload
+- Landing page
+
+- Final debugging

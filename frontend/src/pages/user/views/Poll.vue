@@ -27,14 +27,14 @@
 
         <div class="card justify-end col-span-2">
           <ItemPagination
-            :items="choices[0].votes ? choices : []"
+            :items="showResults ? choices : []"
             :itemsPerPage="6"
             @pageChanged="getCurrentPage"
             class="flex flex-col justify-end h-full p-5"
           >
             <template v-slot:default>
               <div
-                v-if="choices[0].votes"
+                v-if="showResults"
                 class="flex items-end justify-center h-60 justify-self-center mt-auto"
               >
                 <div
@@ -43,7 +43,7 @@
                   class="px-5 flex flex-col items-end h-full transform hover:scale-110 transition ease-out duration-200"
                 >
                   <div
-                    class="flex items-end h-full border-r border-font-dark border-dotted"
+                    class="flex items-end h-full border-font-dark"
                   >
                     <p
                       style="writing-mode: vertical-rl"
@@ -116,7 +116,7 @@
 </template>
 
 <script>
-import { ref, computed, watch, onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useRouter, useRoute, onBeforeRouteUpdate } from "vue-router";
 import { useStore } from "vuex";
 import { DateTime } from "luxon";
@@ -148,6 +148,7 @@ export default {
 
     const poll = ref("");
     const choices = ref([]);
+    const showResults = ref(false);
 
     const owner = ref({});
 
@@ -173,24 +174,26 @@ export default {
 
     // loading stuff
 
-    const { fetching, notFound, fetchData } = useFetching(
-      store.getters.getBaseUrl + `api/poll/${route.params.id_hashed}/`
-    );
+    const { fetching, notFound, fetchData } = useFetching();
 
     onMounted(() => {
       fetchPoll();
     });
 
-    onBeforeRouteUpdate(() => {
+    onBeforeRouteUpdate((to, from) => {
+      route.params.id_hashed = to.params.id_hashed;
       fetchPoll();
     });
 
     const fetchPoll = () => {
-      fetchData().then((res) => {
+
+      fetchData(store.getters.getBaseUrl + `api/poll/${route.params.id_hashed}/`).then((res) => {
         poll.value = res.data.poll;
         choices.value = res.data.choices.reverse();
+        showResults.value = choices.value[0].votes ? true : false;
         owner.value = res.data.poll_owner;
       });
+
     };
 
     const getCurrentPage = (items) => {
@@ -209,6 +212,7 @@ export default {
       currentPage,
       getCurrentPage,
       mostVoted,
+      showResults,
     };
   },
 };

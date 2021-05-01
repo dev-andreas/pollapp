@@ -17,7 +17,7 @@
                 <p class="ml-4">Hash</p>
               </th>
             </tr>
-            <tr v-for="poll in polls" :key="poll.item.hash">
+            <tr v-for="poll in polls" :key="poll.item.id_hashed">
               <td>
                 <p class="font-bold break-all">{{ poll.item.title }}</p>
               </td>
@@ -25,11 +25,18 @@
                 <p class="ml-4 text-xs">{{ poll.item.id_hashed }}</p>
               </td>
               <td>
-                <p
-                  class="group ml-4 p-0.5 border border-transparent hover:border-primary-500 hover:shadow transition ease-out duration-200"
+                <router-link
+                  :to="{
+                    name: 'Poll',
+                    params: { id_hashed: poll.item.id_hashed.toLowerCase() },
+                  }"
                 >
-                  <EyeSvg class="'h-5 w-5 stroke-primary-500"></EyeSvg>
-                </p>
+                  <p
+                    class="group ml-4 p-0.5 border border-transparent hover:border-primary-500 hover:shadow transition ease-out duration-200"
+                  >
+                    <EyeSvg class="'h-5 w-5 stroke-primary-500"></EyeSvg>
+                  </p>
+                </router-link>
               </td>
             </tr>
           </table>

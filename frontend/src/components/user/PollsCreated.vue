@@ -25,18 +25,32 @@
                 <p class="ml-4 text-xs">{{ poll.item.id_hashed }}</p>
               </td>
               <td>
-                <p
-                  class="group ml-4 p-0.5 border border-transparent hover:border-primary-500 hover:shadow transition ease-out duration-200"
+                <router-link
+                  :to="{
+                    name: 'Poll',
+                    params: { id_hashed: poll.item.id_hashed.toLowerCase() },
+                  }"
                 >
-                  <EyeSvg class="h-5 w-5 stroke-primary-500"></EyeSvg>
-                </p>
+                  <p
+                    class="group ml-4 p-0.5 border border-transparent hover:border-primary-500 hover:shadow transition ease-out duration-200"
+                  >
+                    <EyeSvg class="'h-5 w-5 stroke-primary-500"></EyeSvg>
+                  </p>
+                </router-link>
               </td>
               <td>
-                <p
-                  class="group ml-2 p-0.5 border border-transparent hover:border-primary-500 hover:shadow transition ease-out duration-200"
+                <router-link
+                  :to="{
+                    name: 'PollSettings',
+                    params: { id_hashed: poll.item.id_hashed.toLowerCase() },
+                  }"
                 >
-                  <CogSvg class="h-5 w-5 stroke-primary-500"></CogSvg>
-                </p>
+                  <p
+                    class="group ml-2 p-0.5 border border-transparent hover:border-primary-500 hover:shadow transition ease-out duration-200"
+                  >
+                    <CogSvg class="h-5 w-5 stroke-primary-500"></CogSvg>
+                  </p>
+                </router-link>
               </td>
             </tr>
           </table>
@@ -45,7 +59,9 @@
       </Pagination>
     </div>
     <div class="flex w-full pr-2 mt-8 justify-end">
-      <router-link class="btn-primary mx-2" :to="{ name: 'NewPoll' }">Create new poll</router-link>
+      <router-link class="btn-primary mx-2" :to="{ name: 'NewPoll' }"
+        >Create new poll</router-link
+      >
     </div>
   </div>
 </template>
@@ -53,8 +69,8 @@
 <script>
 import { ref } from "vue";
 import Pagination from "../ItemPagination.vue";
-import CogSvg from "../svgpaths/CogSvg.vue"
-import EyeSvg from "../svgpaths/EyeSvg.vue"
+import CogSvg from "../svgpaths/CogSvg.vue";
+import EyeSvg from "../svgpaths/EyeSvg.vue";
 export default {
   components: {
     Pagination,

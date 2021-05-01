@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useRouter, useRoute, onBeforeRouteUpdate } from "vue-router";
 import { useStore } from "vuex";
 import { useFetching, useSubmit, makeRequest } from "../../../assets/utils.js";
@@ -85,20 +85,21 @@ export default {
 
     // fetching
 
-    const { notFound, fetching, fetchData } = useFetching(
-      store.getters.getBaseUrl + `api/poll/${route.params.id_hashed}/`
-    );
+    const { notFound, fetching, fetchData } = useFetching();
 
     onMounted(() => {
       fetchPoll();
     });
 
-    onBeforeRouteUpdate(() => {
+    
+    onBeforeRouteUpdate((to, from) => {
+      route.params.id_hashed = to.params.id_hashed;
       fetchPoll();
     });
 
+
     const fetchPoll = () => {
-      fetchData().then((res) => {
+      fetchData(store.getters.getBaseUrl + `api/poll/${route.params.id_hashed}/`).then((res) => {
         poll.value = res.data.poll;
         choices.value = res.data.choices;
         poll.value.owner = res.data.poll_owner;
@@ -107,9 +108,7 @@ export default {
 
     // submitting
 
-    const { response, error, loading, submit } = useSubmit(
-      store.getters.getBaseUrl + `api/vote/${route.params.id_hashed}/`
-    );
+    const { response, error, loading, submit } = useSubmit();
 
     const submitChoices = () => {
       const form = new FormData();
@@ -117,7 +116,7 @@ export default {
         form.append('votes', checkedChoices.value[i]);
       }
 
-      submit(form);
+      submit(store.getters.getBaseUrl + `api/vote/${route.params.id_hashed}/`, form);
     };
 
     return {

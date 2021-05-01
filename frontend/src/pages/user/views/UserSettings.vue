@@ -5,49 +5,31 @@
       <div class="grid grid-cols-2 mt-20">
         <div class="flex flex-col justify-center items-center">
           <FileInput
-            class="w-48"
-            v-model="file"
-            :default-src="'/static/images/defaultpic.svg'"
+            :default-src="
+              $store.getters.getUser.profile_pic == ''
+                ? '/static/images/defaultpic.svg'
+                : $store.getters.getUser.profile_pic
+            "
+            @image="setImage"
           ></FileInput>
           <h2 class="text-3xl border-b p-1 mt-3">Profile picture</h2>
         </div>
         <div class="card justify-between w-phone pt-5">
-          <div
-            class="flex flex-col items-center w-full"
-            enctype="multipart/form-data"
-            method="post"
-            @submit.prevent=""
-          >
+          <div class="flex flex-col items-center w-full">
             <div class="mt-4">
-              <input
-                class="inpt"
-                type="text"
-                v-model="username"
-              />
+              <input class="inpt" type="text" v-model="username" />
               <h3 class="font-light text-xs">Username</h3>
             </div>
             <div class="mt-4">
-              <input
-                class="inpt"
-                type="text"
-                v-model="firstName"
-              />
+              <input class="inpt" type="text" v-model="firstName" />
               <h3 class="font-light text-xs">First name</h3>
             </div>
             <div class="mt-4">
-              <input
-                class="inpt"
-                type="text"
-                v-model="lastName"
-              />
+              <input class="inpt" type="text" v-model="lastName" />
               <h3 class="font-light text-xs">Last name</h3>
             </div>
             <div class="mt-4">
-              <input
-                class="inpt"
-                type="text"
-                v-model="email"
-              />
+              <input class="inpt" type="email" v-model="email" />
               <h3 class="font-light text-xs">E-Mail</h3>
             </div>
 
@@ -101,6 +83,10 @@ export default {
     const email = ref(store.getters.getUser.email);
     const file = ref(null);
 
+    const setImage = (image) => {
+      file.value = image;
+    }
+
     // indicator
     const showIndicator = ref(false);
     const messages = ref("");
@@ -115,6 +101,8 @@ export default {
       store.commit("setFirstName", firstName.value);
       store.commit("setLastName", lastName.value);
       store.commit("setEmail", email.value);
+      store.commit('setProfilePic', file.value);
+
       store
         .dispatch("saveUserData")
         .then((res) => {
@@ -132,7 +120,7 @@ export default {
       firstName,
       lastName,
       email,
-      file,
+      setImage,
       saveChanges,
 
       showIndicator,

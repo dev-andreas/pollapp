@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="tinted flex justify-between items-center h-14 border-gray-500 border-b p-3 shadow-md z-50"
+    class="tinted flex justify-between items-center h-14 border-gray-500 border-b p-3 shadow-md z-40"
   >
     <div class="flex items-center">
       <router-link class="flex items-center" :to="{ name: links[0].name }">

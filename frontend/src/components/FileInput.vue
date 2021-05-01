@@ -4,11 +4,11 @@
       <img
         :src="src"
         alt="Avatar"
-        class="w-full h-full rounded-full object-cover bg-white border-1 border-font-dark"
+        class="object-cover w-48 h-48 rounded-full bg-white"
       />
       <div
-        class="group absolute top-0 w-full h-full bg-black bg-opacity-0 hover:bg-opacity-25 flex 
-            items-center justify-center rounded-full transition ease-out duration-100"
+        class="group absolute top-0 w-48 h-48 rounded-full bg-black bg-opacity-0 hover:bg-opacity-25 flex 
+            items-center justify-center transition ease-out duration-100"
         @click="browse"
       >
         <svg
@@ -16,7 +16,6 @@
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
-          @click="browse"
         >
           <path
             stroke-linecap="round"
@@ -53,7 +52,7 @@ export default {
     },
   },
 
-  emits: ["input"],
+  emits: ["image"],
 
   setup(props, context) {
     const file = ref(null);
@@ -62,10 +61,11 @@ export default {
     const browse = () => {
       file.value.click();
     };
+
     const change = (event) => {
       file.value = event.target.files[0];
-
-      context.emit("input", file);
+      
+      context.emit("image", file.value);
 
       let reader = new FileReader();
 
