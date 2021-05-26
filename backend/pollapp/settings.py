@@ -159,7 +159,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'andreaskaktus84@gmail.com'
-EMAIL_HOST_PASSWORD = 'pollapp#625920'
+EMAIL_HOST_PASSWORD = 'pollapp#625920' # not working ;)
 
 # restframework
 
